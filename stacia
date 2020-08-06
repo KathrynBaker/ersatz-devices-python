@@ -1,0 +1,4 @@
+Name, rname, na, static, Stacia
+SetPoint, rsp, wsp, var, set_reset
+PresentValue, rpv, na, var, rand_dbl
+Reset, na, rst, na, na
