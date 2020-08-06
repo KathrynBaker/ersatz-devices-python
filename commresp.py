@@ -16,6 +16,7 @@ class CommResp:
         self.noresp_list = list()
         self.set_reset_dict = {}
         self.values = generate_values.GenerateValues()
+        self.init_values_dict = {}
 
     def add_command(self, parameter, getter, setter, source):
         if not getter == "na":
@@ -26,12 +27,15 @@ class CommResp:
             self.set_command_list.append(setter)
         self.command_dict[parameter] = source
         if source[0] == "static":
-            self.static_dict[parameter] = source[1]
+            self.static_dict[parameter] = source[2]
         elif source[0] == "na":
             self.noresp_list.append(parameter)
         elif source[0] == "var":
+            self.init_values_dict[parameter] = source[2]
             if source[1] == "set_reset":
-                self.set_reset_dict[parameter] = "Initial"
+                self.set_reset_dict[parameter] = source[2]
+            if source[1] == "echo":
+                self.set_reset_dict[parameter] = source[2]
         self.parameter_dict.update({getter: parameter, setter: parameter})
 
     def get_source(self, command):
@@ -81,6 +85,8 @@ class CommResp:
                 return str(self.set_reset_dict[parameter])
             elif source[1] == "rand_dbl":
                 return str(self.values.random_value("dbl"))
+            elif source[1] == "echo":
+                return str(self.set_reset_dict[parameter])
             else:
                 return "Error"
 
@@ -96,9 +102,18 @@ class CommResp:
         else:
             if value is None:
                 return "No value given"
+            if source[1] == "reset":
+                print(self.set_reset_dict)
+                print(self.init_values_dict)
+                for parameter in self.set_reset_dict.keys():
+                    self.set_reset_dict[parameter] = self.init_values_dict[parameter]
+                return "Values Reset"
             if source[1] == "set_reset":
                 self.set_reset_dict[parameter] = value
                 return "Value set"
+            if source[1] == "echo":
+                self.set_reset_dict[parameter] = value
+                return "", command, " ", value
             elif source[1] == "rand_dbl":
                 return "Value set"
             else:

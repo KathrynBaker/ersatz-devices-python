@@ -23,13 +23,18 @@ class Instrument:
             cmd = cs.recv(1024).decode()
             cmd = cmd.strip()
             if cmd != "":
-                print(cmd)
+                print("IN: ", cmd)
             if cmd == "QUIT":
+                break
+            if cmd == "QU":
                 break
             command = str(cmd).split(" ")
             if len(command) < 2:
                 command.append("")
-            result = self.commands.run_command(command[0].strip(), command[1].strip()) + "\r\n"
+            test = self.commands.run_command(command[0].strip(), command[1].strip())
+            test = ''.join(test)
+            print("OUT: ", test)
+            result = test + "\r\n"
             cs.send(result.encode('ascii'))
             cs.close()
         print("Quitting")
@@ -43,6 +48,13 @@ def start_ibex_example(port=9998, name="stacia"):
     example.run()
     example.cease()
 
+def start_hificm_example(port=9999, name="hificm"):
+    example = Instrument(port, name)
+    example.run()
+    example.cease()
 
-# Whilst trying to get running with tcp
+# For the demo
 start_ibex_example()
+
+# For some playing with HIFI CM
+# start_hificm_example()

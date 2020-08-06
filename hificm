@@ -1,0 +1,8 @@
+Name, rname, na, static, HIFI CM Test, 0
+SetPoint, rsp, wsp, var, set_reset, 0
+PresentValue, rpv, na, var, rand_dbl, 0
+Reset, na, rst, na, na, 0
+MaxValue, G!, S!, var, echo, 0
+Mode, na, T, var, echo, 0
+Sign, GS, D, var, echo, 0
+Rate, GR, SR, var, echo, 0

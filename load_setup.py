@@ -17,6 +17,6 @@ def load_setup(filename):
         parameter = str(line[0]).strip()
         getter = str(line[1]).strip()
         setter = str(line[2]).strip()
-        source = (str(line[3]).strip(), str(line[4]).strip())
+        source = (str(line[3]).strip(), str(line[4]).strip(), str(line[5]).strip())
         commands.add_command(parameter, getter, setter, source)
     return commands

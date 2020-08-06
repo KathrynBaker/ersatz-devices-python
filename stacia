@@ -1,4 +1,5 @@
-Name, rname, na, static, Stacia
-SetPoint, rsp, wsp, var, set_reset
-PresentValue, rpv, na, var, rand_dbl
-Reset, na, rst, na, na
+Name, rname, na, static, static, Stacia
+SetPoint, rsp, wsp, var, set_reset, 2
+PresentValue, rpv, na, var, rand_dbl, na
+Reset, na, rst, reset, reset, na
+Echo, rev, wev, var, echo, 0
